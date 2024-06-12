@@ -67,33 +67,44 @@ function Catalog() {
   };
 
   return (
-    <div>
-      <h1>Catalog</h1>
-      {role === 'admin' && <button onClick={handleAddProduct}>Add Product</button>}
-      <div>
-        <label htmlFor="sort">Sort by:</label>
+    <div className="catalog-container">
+      <h1>Каталог</h1>
+      <div className="catalog-header">
+      {role === 'admin' && <button className="add-product-button" onClick={handleAddProduct}>Добавить продукт</button>}
+      <div className="sort-container">
+        <label htmlFor="sort">Сортировать по:</label>
         <select id="sort" value={sortCriterion} onChange={handleSortChange}>
-          <option value="">Select</option>
-          <option value="year">Year of Release</option>
-          <option value="model">Model</option>
-          <option value="price">Price</option>
+          <option value="">Выбрать</option>
+          <option value="year">Год выпуска</option>
+          <option value="model">Модель</option>
+          <option value="price">Цена</option>
         </select>
+      </div>
       </div>
       <div className="catalog">
         {sortedProducts.map(product => (
           <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
-            <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} />
-            <h2>{product.model}</h2>
-            <p>Country: {product.country}</p>
-            <p>Year: {product.year_of_release}</p>
-            <p>Price: ${product.price}</p>
-            <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>Add to Cart</button>
-            {role === 'admin' && (
-              <div>
-                <button onClick={(e) => { e.stopPropagation(); handleEditProduct(product.id); }}>Edit</button>
-                <button onClick={(e) => { e.stopPropagation(); handleDeleteProduct(product.id); }}>Delete</button>
+            <h2 className="product-title">{product.model}</h2>
+            <div className="product-details">
+              <div className="product-image-container">
+                <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} className="product-image" />
               </div>
-            )}
+              <div className="product-info">
+                <p>Страна: <strong>{product.country}</strong></p>
+                <p>Год выпуска: <strong>{product.year_of_release}</strong></p>
+                <p>Модель: <strong>{product.model}</strong></p>
+                <p>Цена: <strong>{product.price}$</strong></p>
+              </div>
+              <div className="product-actions">
+                <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>В корзину</button>
+                {role === 'admin' && (
+                  <>
+                    <button onClick={(e) => { e.stopPropagation(); handleEditProduct(product.id); }}>Редактировать</button>
+                    <button onClick={(e) => { e.stopPropagation(); handleDeleteProduct(product.id); }}>Удалить</button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './AddProduct.css';
 
 function AddProduct() {
   const [formData, setFormData] = useState({
@@ -34,7 +35,9 @@ function AddProduct() {
     data.append('year_of_release', formData.year_of_release);
     data.append('model', formData.model);
     data.append('price', formData.price);
-    data.append('photo', formData.photo);
+    if (formData.photo) {
+      data.append('photo', formData.photo);
+    }
 
     axios.post('http://localhost:3000/api/catalog', data)
       .then(response => {
@@ -42,53 +45,64 @@ function AddProduct() {
         navigate('/catalog');
       })
       .catch(error => {
-        console.error('There was an error uploading the product!', error);
+        console.error('There was an error adding the product!', error);
       });
   };
 
   return (
-    <div className="add-product-form">
-      <h1>Add Product</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="year_of_release"
-          placeholder="Year of Release"
-          value={formData.year_of_release}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="model"
-          placeholder="Model"
-          value={formData.model}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="file"
-          name="photo"
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Add Product</button>
+    <div className="add-product-container">
+      <h1>Добавить продукт</h1>
+      <form onSubmit={handleSubmit} className="add-product-form">
+        <div className="form-group">
+          <label>Страна</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Год выпуска</label>
+          <input
+            type="number"
+            name="year_of_release"
+            value={formData.year_of_release}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Модель</label>
+          <input
+            type="text"
+            name="model"
+            value={formData.model}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Цена</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Фото</label>
+          <input
+            type="file"
+            name="photo"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button className="add-product-button" type="submit">Добавить продукт</button>
       </form>
     </div>
   );

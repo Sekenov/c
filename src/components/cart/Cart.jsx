@@ -8,13 +8,18 @@ function Cart() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState('');
   const [role, setRole] = useState(null);
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const userRole = localStorage.getItem("role");
     setRole(userRole);
 
+    const storedUsername = localStorage.getItem('username');
+    setUsername(storedUsername);
+
     const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
-    setOrders(savedOrders);
+    const userOrders = savedOrders.filter(order => order.username === storedUsername);
+    setOrders(userOrders.sort((a, b) => b.id - a.id));
   }, []);
 
   const handlePasswordChange = (e) => {
@@ -33,15 +38,16 @@ function Cart() {
     }
 
     const newOrder = {
-      id: Date.now(), // Вы можете использовать более надежный метод для генерации уникального ID
+      id: Date.now(),
+      username: username, // Сохранение имени пользователя
       status: 'Новый',
       items: cart,
       total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
     };
 
-    const updatedOrders = [...orders, newOrder];
+    const updatedOrders = [newOrder, ...orders];
     setOrders(updatedOrders);
-    localStorage.setItem('orders', JSON.stringify(updatedOrders)); // Сохранение заказов в localStorage
+    localStorage.setItem('orders', JSON.stringify([...updatedOrders, ...orders.filter(order => order.username !== username)])); // Сохранение заказов в localStorage
 
     clearCart();
     setPassword(''); // Очистить поле пароля
@@ -53,26 +59,32 @@ function Cart() {
       order.id === orderId ? { ...order, status: 'Отменён' } : order
     );
     setOrders(updatedOrders);
-    localStorage.setItem('orders', JSON.stringify(updatedOrders)); // Обновление заказов в localStorage
+    localStorage.setItem('orders', JSON.stringify([...updatedOrders, ...orders.filter(order => order.username !== username)])); // Обновление заказов в localStorage
   };
 
   return (
     <div className="cart-container">
       <h1>Ваша корзина</h1>
       <div className="cart-items">
-        {cart.map((product) => (
-          <div key={product.id} className="cart-item">
-            <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} />
-            <h2>{product.model}</h2>
-            <p>{product.price}$</p>
-            <button onClick={() => removeFromCart(product.id)}>Убрать</button>
-            <div className="cart-item-quantity">
-              <button onClick={() => removeFromCart(product.id)}>-</button>
-              <span>{product.quantity}</span>
-              <button onClick={() => addToCart(product)}>+</button>
+        {cart.length === 0 ? (
+          <p>Ваша корзина пуста.</p>
+        ) : (
+          cart.map((product) => (
+            <div key={product.id} className="cart-item">
+              <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} className="cart-item-image" />
+              <div className="cart-item-details">
+                <h2>{product.model}</h2>
+                <p>{product.price}$</p>
+                <div className="cart-item-quantity">
+                  <button onClick={() => removeFromCart(product.id)}>-</button>
+                  <span>{product.quantity}</span>
+                  <button onClick={() => addToCart(product)}>+</button>
+                </div>
+                <button className="remove-button" onClick={() => removeFromCart(product.id)}>Убрать</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       <div className="cart-summary">
         <p>Общая стоимость: {cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}$</p>
@@ -81,8 +93,9 @@ function Cart() {
           placeholder="Ваш пароль"
           value={password}
           onChange={handlePasswordChange}
+          className="password-input"
         />
-        <button onClick={handlePlaceOrder}>Сформировать заказ</button>
+        <button className="place-order-button" onClick={handlePlaceOrder}>Сформировать заказ</button>
         {error && <p className="error">{error}</p>}
       </div>
       <h2>Ваши заказы</h2>
@@ -102,7 +115,7 @@ function Cart() {
               ))}
             </div>
             {role === 'admin' && order.status !== 'Отменён' && (
-              <button onClick={() => handleCancelOrder(order.id)}>Отменить заказ</button>
+              <button className="cancel-order-button" onClick={() => handleCancelOrder(order.id)}>Отменить заказ</button>
             )}
           </div>
         ))}

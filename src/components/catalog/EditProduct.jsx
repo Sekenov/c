@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import './EditProduct.css';
 
 function EditProduct() {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     country: '',
     year_of_release: '',
@@ -11,7 +13,6 @@ function EditProduct() {
     photo: null,
   });
   const [currentPhoto, setCurrentPhoto] = useState(null);
-  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,52 +70,64 @@ function EditProduct() {
   };
 
   return (
-    <div className="edit-product-form">
-      <h1>Edit Product</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="year_of_release"
-          placeholder="Year of Release"
-          value={formData.year_of_release}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="model"
-          placeholder="Model"
-          value={formData.model}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
+    <div className="edit-product-container">
+      <h1>Редактировать товар</h1>
+      <form onSubmit={handleSubmit} className="edit-product-form">
+        <div className="form-group">
+          <label>Страна</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Год выпуска</label>
+          <input
+            type="number"
+            name="year_of_release"
+            value={formData.year_of_release}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Модель</label>
+          <input
+            type="text"
+            name="model"
+            value={formData.model}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Цена</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
         {currentPhoto && (
-          <div>
-            <img src={`data:image/jpeg;base64,${currentPhoto}`} alt="Current Product" style={{ maxWidth: '200px', marginBottom: '10px' }} />
+          <div className="form-group">
+            <label>Текущее фото</label>
+            <img src={`data:image/jpeg;base64,${currentPhoto}`} alt="Current Product" className="current-photo" />
           </div>
         )}
-        <input
-          type="file"
-          name="photo"
-          onChange={handleChange}
-        />
-        <button type="submit">Update Product</button>
+        <div className="form-group">
+          <label>Новое фото</label>
+          <input
+            type="file"
+            name="photo"
+            onChange={handleChange}
+          />
+        </div>
+        <button className="submit-button" type="submit">Обновить</button>
       </form>
     </div>
   );
