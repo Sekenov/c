@@ -1,0 +1,32 @@
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* padding: 0 20px; */
+    height: 60px;
+    border-bottom: 3px solid black;
+}
+.menu .buttons{
+    display: flex;
+    
+    gap: 20px;
+}
+.menu ul{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    justify-content: center;
+    
+}
+.menu ul .pocket{
+    color: rgb(3, 95, 156);
+}
+.menu ul a{
+    text-decoration: none;color: black;
+    font-size: 20px;
+    
+}
+.menu ul a:hover{
+        color: blue;
+    }
