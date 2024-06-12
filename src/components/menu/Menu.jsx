@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Menu.css";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from '../cart/CartContext';
 
 export default function Menu() {
   const [role, setRole] = useState(null);
+  const { cart } = useContext(CartContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,10 +34,10 @@ export default function Menu() {
     <nav className="menu">
       <ul>
         <Link to="/about">О нас</Link>
-        <Link to="/cart">Корзина</Link>
         <Link to="/order">Заказ</Link>
         <Link to="/catalog">Каталог</Link>
         <Link to="/map">Карта</Link>
+        <Link to="/cart">Корзина ({cart.length})</Link>
         {role === 'admin' ? (
           <>
             <span className="pocket">Админ</span>

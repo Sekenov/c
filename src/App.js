@@ -9,9 +9,12 @@ import Map from "./components/map/Map";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import AddProduct from "./components/addProduct/AddProduct";
+import EditProduct from "./components/catalog/EditProduct";
+import { CartProvider } from "./components/cart/CartContext";
 function App() {
   return (
     <>
+     <CartProvider>
       <Preview />
       <Menu />
       <Routes>
@@ -23,7 +26,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/edit-product/:id" element={<EditProduct />} />
       </Routes>
+      </CartProvider>
     </>
   );
 }
