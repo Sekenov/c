@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from './CartContext';
 import './Cart.css';
 
@@ -7,6 +7,15 @@ function Cart() {
   const [password, setPassword] = useState('');
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState('');
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("role");
+    setRole(userRole);
+
+    const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    setOrders(savedOrders);
+  }, []);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -30,10 +39,21 @@ function Cart() {
       total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
     };
 
-    setOrders([...orders, newOrder]);
+    const updatedOrders = [...orders, newOrder];
+    setOrders(updatedOrders);
+    localStorage.setItem('orders', JSON.stringify(updatedOrders)); // Сохранение заказов в localStorage
+
     clearCart();
     setPassword(''); // Очистить поле пароля
     setError(''); // Очистить сообщение об ошибке
+  };
+
+  const handleCancelOrder = (orderId) => {
+    const updatedOrders = orders.map(order => 
+      order.id === orderId ? { ...order, status: 'Отменён' } : order
+    );
+    setOrders(updatedOrders);
+    localStorage.setItem('orders', JSON.stringify(updatedOrders)); // Обновление заказов в localStorage
   };
 
   return (
@@ -81,6 +101,9 @@ function Cart() {
                 </div>
               ))}
             </div>
+            {role === 'admin' && order.status !== 'Отменён' && (
+              <button onClick={() => handleCancelOrder(order.id)}>Отменить заказ</button>
+            )}
           </div>
         ))}
       </div>
