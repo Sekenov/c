@@ -6,27 +6,34 @@ function Cart() {
   const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
   const [password, setPassword] = useState('');
   const [orders, setOrders] = useState([]);
+  const [error, setError] = useState('');
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
   const handlePlaceOrder = () => {
+    if (cart.length === 0) {
+      setError('Корзина пуста. Пожалуйста, добавьте товары в корзину перед оформлением заказа.');
+      return;
+    }
+
     if (password === '') {
-      alert('Please enter your password to place the order.');
+      setError('Пожалуйста, введите ваш пароль для оформления заказа.');
       return;
     }
 
     const newOrder = {
-      id: Date.now(), // You can use a better unique ID generation method
-      status: 'New',
+      id: Date.now(), // Вы можете использовать более надежный метод для генерации уникального ID
+      status: 'Новый',
       items: cart,
       total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
     };
 
     setOrders([...orders, newOrder]);
     clearCart();
-    setPassword(''); // Clear password field
+    setPassword(''); // Очистить поле пароля
+    setError(''); // Очистить сообщение об ошибке
   };
 
   return (
@@ -56,6 +63,7 @@ function Cart() {
           onChange={handlePasswordChange}
         />
         <button onClick={handlePlaceOrder}>Сформировать заказ</button>
+        {error && <p className="error">{error}</p>}
       </div>
       <h2>Ваши заказы</h2>
       <div className="orders">
