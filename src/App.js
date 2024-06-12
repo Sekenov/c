@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import AddProduct from "./components/addProduct/AddProduct";
 import EditProduct from "./components/catalog/EditProduct";
 import { CartProvider } from "./components/cart/CartContext";
+import ProductDetail from "./components/productDetail/ProductDetail";
 function App() {
   return (
     <>
@@ -27,6 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/edit-product/:id" element={<EditProduct />} />
+        <Route path="/product/:id" element={<ProductDetail />} /> {/* Добавлен маршрут для ProductDetail */}
+
       </Routes>
       </CartProvider>
     </>
