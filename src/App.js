@@ -8,6 +8,7 @@ import Catalog from "./components/catalog/Catalog";
 import Map from "./components/map/Map";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
+import AddProduct from "./components/addProduct/AddProduct";
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/map" element={<Map />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/add-product" element={<AddProduct />} />
       </Routes>
     </>
   );

@@ -25,8 +25,10 @@ export default function Register() {
     e.preventDefault();
     axios.post('http://localhost:3000/register', formData)
       .then(response => {
-        alert(response.data);
-        navigate('/'); 
+        alert(response.data.message); // предполагая, что сервер возвращает сообщение
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // сохраняем информацию о пользователе
+        window.dispatchEvent(new Event('storage')); // триггер события storage для обновления состояния в Menu
+        navigate('/'); // перенаправление на главную страницу после успешной регистрации
       })
       .catch(error => {
         console.error('There was an error!', error);

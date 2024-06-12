@@ -11,9 +11,10 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
@@ -21,11 +22,13 @@ export default function Login() {
     e.preventDefault();
     axios.post('http://localhost:3000/login', formData)
       .then(response => {
-        alert(response.data);
-        navigate('/'); // Redirect to the main page upon successful login
+        alert(response.data.message);
+        localStorage.setItem("role", response.data.role);
+        window.dispatchEvent(new Event('storage'));
+        navigate('/');
       })
       .catch(error => {
-        alert(error.response.data);
+        alert(error.response.data.message);
         console.error('There was an error!', error);
       });
   };
@@ -66,7 +69,7 @@ export default function Login() {
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6В3а3 3 0 0 0-6 0v4а2 2 0 0 0-2 2v5а2 2 0 0 0 2 2h6а2 2 0 0 0 2-2В9а2 2 0 0 0-2-2z"></path>
             </svg>
             <input
               placeholder="Password"

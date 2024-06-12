@@ -1,26 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Menu.css";
-import { Link } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Menu() {
- 
+  const [role, setRole] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    setRole(role);
+
+    const handleStorageChange = () => {
+      const newRole = localStorage.getItem("role");
+      setRole(newRole);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    window.dispatchEvent(new Event('storage')); // Триггер события для обновления состояния
+    navigate('/'); // Перенаправление на главную страницу
+  };
+
   return (
-    <>
-      <nav className="menu">
-        <ul>
-          <Link to="/about">О нас</Link>
-          <Link to="/cart">Корзина</Link>
-          <Link to="/order">Заказ</Link>
-          <Link to="/catalog">Каталог</Link>
-          <Link to="/map">Карта</Link>
-          <Link className="pocket">Выход</Link>
-          <Link to="/login" className="pocket">Вход</Link>
-          <Link to="/register" className="pocket" >Регистрация</Link>
-        </ul>
-      </nav>
-      
-    </>
+    <nav className="menu">
+      <ul>
+        <Link to="/about">О нас</Link>
+        <Link to="/cart">Корзина</Link>
+        <Link to="/order">Заказ</Link>
+        <Link to="/catalog">Каталог</Link>
+        <Link to="/map">Карта</Link>
+        {role === 'admin' ? (
+          <>
+            <span className="pocket">Админ</span>
+            <button className="pocket" onClick={handleLogout}>Выход</button>
+          </>
+        ) : role ? (
+          <>
+            <span className="pocket">Клиент</span>
+            <button className="pocket" onClick={handleLogout}>Выход</button>
+          </>
+        ) : (
+          <>
+            <span className="pocket">Посетитель</span>
+            <Link className="pocket" to="/login">Вход</Link>
+            <Link className="pocket" to="/register">Регистрация</Link>
+          </>
+        )}
+      </ul>
+    </nav>
   );
 }
