@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import "./Menu.css";
 import { Link } from "react-router-dom";
-import RegistrationModal from "../register/Register";
+
 
 
 export default function Menu() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
+ 
   return (
     <>
       <nav className="menu">
@@ -25,11 +16,11 @@ export default function Menu() {
           <Link to="/catalog">Каталог</Link>
           <Link to="/map">Карта</Link>
           <Link className="pocket">Выход</Link>
-          <Link className="pocket">Вход</Link>
-          <button className="pocket" onClick={openModal}>Регистрация</button>
+          <Link to="/login" className="pocket">Вход</Link>
+          <Link to="/register" className="pocket" >Регистрация</Link>
         </ul>
       </nav>
-      <RegistrationModal isOpen={isModalOpen} onClose={closeModal} />
+      
     </>
   );
 }
