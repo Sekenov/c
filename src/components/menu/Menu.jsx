@@ -45,7 +45,7 @@ export default function Menu() {
             <Link to="/map">Карта</Link>
             <Link to="/cart">Корзина </Link>
             <span className="role">Админ</span>
-            <button className=" " onClick={handleLogout}>Выход</button>
+            <button className="pocket" onClick={handleLogout}>Выход</button>
           </>
         ) : role === 'client' ? (
           <>
