@@ -73,7 +73,7 @@ function Cart() {
           className="back"
           onClick={() => navigate("/catalog")}
         />
-      </div>  
+      </div>
       <h1>Ваша корзина</h1>
       <div className="cart-items">
         {cart.length === 0 ? (
