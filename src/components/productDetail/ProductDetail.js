@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
 import { CartContext } from '../cart/CartContext';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -43,8 +45,15 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-container">
-      <h1>{product.model}</h1>
-      <div className="product-detail-card">
+       
+      <div className="product-detail-card"><div className="back-button">
+        {" "}
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="back"
+          onClick={() => navigate("/catalog")}
+        />
+      </div>
       <div className="product-info">
         <div className="info">
           <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} className="img" />

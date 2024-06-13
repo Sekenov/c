@@ -43,23 +43,23 @@ export default function Menu() {
             <Link to="/about">О нас</Link>
             <Link to="/order">Заказ</Link>
             <Link to="/map">Карта</Link>
-            <Link to="/cart">Корзина ({cart.length})</Link>
-            <span className="pocket">Админ</span>
-            <button className="pocket" onClick={handleLogout}>Выход</button>
+            <Link to="/cart">Корзина </Link>
+            <span className="role">Админ</span>
+            <button className=" " onClick={handleLogout}>Выход</button>
           </>
         ) : role === 'client' ? (
           <>
             <Link to="/about">О нас</Link>
             <Link to="/order">Заказ</Link>
             <Link to="/map">Карта</Link>
-            <Link to="/cart">Корзина ({cart.length})</Link>
-            <span className="pocket">Клиент</span>
+            <Link to="/cart">Корзина</Link>
+            <span className="role">Клиент</span>
             <button className="pocket" onClick={handleLogout}>Выход</button>
             <button className="pocket" onClick={handleAdminLogin}>Войти как админ</button>
           </>
         ) : (
           <>
-            <span className="pocket">Посетитель</span>
+            <span className="role">Посетитель</span>
             <Link className="pocket" to="/login">Вход</Link>
             <Link className="pocket" to="/register">Регистрация</Link>
           </>

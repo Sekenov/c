@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from './CartContext';
 import './Cart.css';
-
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 function Cart() {
   const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
   const [password, setPassword] = useState('');
@@ -9,7 +11,7 @@ function Cart() {
   const [error, setError] = useState('');
   const [role, setRole] = useState(null);
   const [username, setUsername] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const userRole = localStorage.getItem("role");
     setRole(userRole);
@@ -64,6 +66,14 @@ function Cart() {
 
   return (
     <div className="cart-container">
+       <div className="back-button">
+        {" "}
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="back"
+          onClick={() => navigate("/catalog")}
+        />
+      </div>  
       <h1>Ваша корзина</h1>
       <div className="cart-items">
         {cart.length === 0 ? (

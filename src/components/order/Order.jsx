@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Order.css';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 function Order() {
   const [userOrders, setUserOrders] = useState([]);
   const [otherOrders, setOtherOrders] = useState([]);
   const [role, setRole] = useState(null);
   const [username, setUsername] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
     const storedUsername = localStorage.getItem('username');
@@ -32,6 +34,14 @@ function Order() {
 
   return (
     <div className="order-container">
+      <div className="back-button">
+        {" "}
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="back"
+          onClick={() => navigate("/catalog")}
+        />
+      </div>
       <h1>Ваши заказы</h1>
       {userOrders.length === 0 ? (
         <p>У вас нет заказов.</p>

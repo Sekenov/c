@@ -17,10 +17,20 @@
     list-style: none;
     gap: 20px;
     justify-content: center;
-    
+    align-items: center;
+}
+.menu ul .role{
+    font-size: 20px;
+    color: blue;
+    float: right;
 }
 .menu ul .pocket{
-    color: rgb(3, 95, 156);
+    padding: 5px;
+    border-color: rgb(231, 231, 231);
+    border: 1px solid rgb(231, 231, 231);   
+}
+.menu ul .pocket:hover{
+    background-color: rgb(231, 231, 231);
 }
 .menu ul a{
     text-decoration: none;color: black;

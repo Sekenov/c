@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AddProduct.css';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 function AddProduct() {
   const [formData, setFormData] = useState({
     country: '',
@@ -51,6 +52,14 @@ function AddProduct() {
 
   return (
     <div className="add-product-container">
+      <div className="back-button">
+        {" "}
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="back"
+          onClick={() => navigate("/catalog")}
+        />
+      </div>
       <h1>Добавить продукт</h1>
       <form onSubmit={handleSubmit} className="add-product-form">
         <div className="form-group">

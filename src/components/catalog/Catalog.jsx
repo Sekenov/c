@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Catalog.css';
 import { CartContext } from '../cart/CartContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog() {
   const [products, setProducts] = useState([]);
@@ -96,7 +98,9 @@ function Catalog() {
                 <p>Цена: <strong>{product.price}$</strong></p>
               </div>
               <div className="product-actions">
-                {role === 'client' && <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>В корзину</button>}
+                {role === 'client' && (
+                  <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>В корзину</button>
+                )}
                 {role === 'admin' && (
                   <>
                     <button onClick={(e) => { e.stopPropagation(); handleEditProduct(product.id); }}>Редактировать</button>
