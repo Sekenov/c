@@ -33,18 +33,22 @@ export default function Menu() {
   return (
     <nav className="menu">
       <ul>
-        <Link to="/about">О нас</Link>
-        <Link to="/order">Заказ</Link>
         <Link to="/catalog">Каталог</Link>
-        <Link to="/map">Карта</Link>
-        <Link to="/cart">Корзина ({cart.length})</Link>
         {role === 'admin' ? (
           <>
+            <Link to="/about">О нас</Link>
+            <Link to="/order">Заказ</Link>
+            <Link to="/map">Карта</Link>
+            <Link to="/cart">Корзина ({cart.length})</Link>
             <span className="pocket">Админ</span>
             <button className="pocket" onClick={handleLogout}>Выход</button>
           </>
-        ) : role ? (
+        ) : role === 'client' ? (
           <>
+            <Link to="/about">О нас</Link>
+            <Link to="/order">Заказ</Link>
+            <Link to="/map">Карта</Link>
+            <Link to="/cart">Корзина ({cart.length})</Link>
             <span className="pocket">Клиент</span>
             <button className="pocket" onClick={handleLogout}>Выход</button>
           </>

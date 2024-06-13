@@ -70,16 +70,16 @@ function Catalog() {
     <div className="catalog-container">
       <h1>Каталог</h1>
       <div className="catalog-header">
-      {role === 'admin' && <button className="add-product-button" onClick={handleAddProduct}>Добавить продукт</button>}
-      <div className="sort-container">
-        <label htmlFor="sort">Сортировать по:</label>
-        <select id="sort" value={sortCriterion} onChange={handleSortChange}>
-          <option value="">Выбрать</option>
-          <option value="year">Год выпуска</option>
-          <option value="model">Модель</option>
-          <option value="price">Цена</option>
-        </select>
-      </div>
+        {role === 'admin' && <button className="add-product-button" onClick={handleAddProduct}>Добавить продукт</button>}
+        <div className="sort-container">
+          <label htmlFor="sort">Сортировать по:</label>
+          <select id="sort" value={sortCriterion} onChange={handleSortChange}>
+            <option value="">Выбрать</option>
+            <option value="year">Год выпуска</option>
+            <option value="model">Модель</option>
+            <option value="price">Цена</option>
+          </select>
+        </div>
       </div>
       <div className="catalog">
         {sortedProducts.map(product => (
@@ -96,7 +96,7 @@ function Catalog() {
                 <p>Цена: <strong>{product.price}$</strong></p>
               </div>
               <div className="product-actions">
-                <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>В корзину</button>
+                {role === 'client' && <button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>В корзину</button>}
                 {role === 'admin' && (
                   <>
                     <button onClick={(e) => { e.stopPropagation(); handleEditProduct(product.id); }}>Редактировать</button>
