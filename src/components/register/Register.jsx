@@ -10,7 +10,8 @@ export default function Register() {
     patronymic: '',
     username: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: '' // Добавлено поле confirmPassword
   });
   const navigate = useNavigate();
 
@@ -23,15 +24,22 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
     axios.post('http://localhost:3000/register', formData)
       .then(response => {
-        alert(response.data.message); // предполагая, что сервер возвращает сообщение
-        localStorage.setItem("user", JSON.stringify(response.data.user)); // сохраняем информацию о пользователе
-        window.dispatchEvent(new Event('storage')); // триггер события storage для обновления состояния в Menu
+        alert(response.data); // предполагая, что сервер возвращает сообщение
+        localStorage.setItem("role", "client"); // Установка роли client в localStorage
+        window.dispatchEvent(new Event('storage')); // Вызов события storage для обновления состояния
         navigate('/'); // перенаправление на главную страницу после успешной регистрации
       })
       .catch(error => {
         console.error('There was an error!', error);
+        alert('Registration failed: ' + (error.response ? error.response.data : error.message));
       });
   };
 
@@ -73,12 +81,13 @@ export default function Register() {
               name="patronymic"
               value={formData.patronymic}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="field">
             <input
               autoComplete="off"
-              placeholder="Логин"
+              placeholder="Имя пользователя"
               className="input-field"
               type="text"
               name="username"
@@ -101,6 +110,7 @@ export default function Register() {
           </div>
           <div className="field">
             <input
+              autoComplete="off"
               placeholder="Пароль"
               className="input-field"
               type="password"
@@ -112,22 +122,23 @@ export default function Register() {
           </div>
           <div className="field">
             <input
-              placeholder="Подтвердите Пароль"
+              autoComplete="off"
+              placeholder="Подтвердите пароль"
               className="input-field"
               type="password"
               name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               required
             />
           </div>
           <div className="btn">
-            <button type="submit" className="button1">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Регистрация&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
+            <button className="button1" type="submit">Зарегистрироваться</button>
             <Link to={"/login"} type="button" className="button2">Войти</Link>
           </div>
-          <button type="button" className="button3" onClick={() => navigate('/')}>
-            Back
-          </button>
+          <button type="submit" className="button3" onClick={() => navigate('/')}>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Назад&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
         </form>
       </div>
     </div>

@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.map-head h3{
+    border-bottom: 2px solid gray;
+    width: 64%; /* Установите необходимую ширину */
+    margin: 0 auto; /* Центрирование элемента */
+    padding: 20px;
+}
+
+.contact p{
+
+   font-size: 17px;
+   margin-left: 18%;
+   margin-top: 15px;
+}
+.map-footer{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.map{
+    
+    margin: 10px auto;
+    width: 800px;
+    height: 400px;
+}
