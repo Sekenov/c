@@ -30,6 +30,10 @@ export default function Menu() {
     navigate('/'); // Перенаправление на главную страницу
   };
 
+  const handleAdminLogin = () => {
+    navigate('/login?admin=true'); // Перенаправление на страницу входа с параметром admin
+  };
+
   return (
     <nav className="menu">
       <ul>
@@ -51,6 +55,7 @@ export default function Menu() {
             <Link to="/cart">Корзина ({cart.length})</Link>
             <span className="pocket">Клиент</span>
             <button className="pocket" onClick={handleLogout}>Выход</button>
+            <button className="pocket" onClick={handleAdminLogin}>Войти как админ</button>
           </>
         ) : (
           <>

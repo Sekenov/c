@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./login.css";
 import axios from 'axios';
 
@@ -9,6 +9,19 @@ export default function Login() {
     password: ''
   });
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showAdminLogin, setShowAdminLogin] = useState(false); // Состояние для отображения формы админского входа
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('admin') === 'true') {
+      setShowAdminLogin(true);
+      setFormData({
+        username: 'admin',
+        password: ''
+      });
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     setFormData({
@@ -19,6 +32,15 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Проверяем, если это админские данные, запрещаем вход посетителям
+    if (formData.username === 'admin' && formData.password === 'admin123') {
+      const role = localStorage.getItem("role");
+      if (role === 'visitor' || !role) {
+        alert('Вход для админов запрещен для посетителей.');
+        return;
+      }
+    }
 
     axios.post('http://localhost:3000/login', formData)
       .then(response => {
