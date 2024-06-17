@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import './AddProduct.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+
 function AddProduct() {
   const [formData, setFormData] = useState({
     country: '',
     year_of_release: '',
     model: '',
     price: '',
+    quantity: '',  // Added quantity to the state
     photo: null,
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -36,6 +39,7 @@ function AddProduct() {
     data.append('year_of_release', formData.year_of_release);
     data.append('model', formData.model);
     data.append('price', formData.price);
+    data.append('quantity', formData.quantity);  // Include quantity in the form data
     if (formData.photo) {
       data.append('photo', formData.photo);
     }
@@ -53,7 +57,6 @@ function AddProduct() {
   return (
     <div className="add-product-container">
       <div className="back-button">
-        {" "}
         <FontAwesomeIcon
           icon={faChevronLeft}
           className="back"
@@ -98,6 +101,16 @@ function AddProduct() {
             type="number"
             name="price"
             value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Количество</label>
+          <input
+            type="number"
+            name="quantity"
+            value={formData.quantity}
             onChange={handleChange}
             required
           />

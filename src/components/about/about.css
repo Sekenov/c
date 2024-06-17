@@ -1,0 +1,166 @@
+/* Общие стили страницы "О нас" */
+.about-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: gainsboro;
+    color: #333;
+}
+
+.about-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.about-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.about-content p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about-slider {
+    margin-top: 40px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.about-slider h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Стили для слайдера */
+.slick-slide img {
+    display: block;
+    margin: 0 auto;
+    max-height: 350px;
+}
+
+.slick-prev, .slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 30px;
+    line-height: 1;
+    opacity: .75;
+    color: #333;
+}
+
+.slick-prev:hover:before, .slick-next:hover:before {
+    opacity: 1;
+}
+
+.slick-prev {
+    left: -25px;
+}
+
+.slick-next {
+    right: -25px;
+}
+
+/* Стили для треугольных кнопок */
+.triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.button {
+    display: block;
+    position: relative;
+    width: 56px;
+    height: 56px;
+    top: -190px;
+    overflow: hidden;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+}
+
+.button:before,
+.button:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 7px;
+}
+
+.button:before {
+    border: 4px solid gray;
+}
+
+.button:after {
+    border: 4px solid gray;
+}
+
+.button-left {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.button-right {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0px;
+}
+
+.button-elem {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 17px 18px 0 18px;
+    transform: rotate(180deg);
+    fill: black;
+}
+
+.button-mool {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 20px 18px 0 18px;
+    fill: black;
+}
+
+.slider-buttons{
+display: flex;
+gap: 70%;
+justify-content: center;
+}

@@ -11,20 +11,17 @@
 }
 
 .contact p{
-
    font-size: 17px;
    margin-left: 18%;
    margin-top: 15px;
 }
 .map-footer{
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .map{
-    
     margin: 10px auto;
-    width: 800px;
+    width: 900px;
     height: 400px;
 }

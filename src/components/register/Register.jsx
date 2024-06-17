@@ -133,8 +133,8 @@ export default function Register() {
             />
           </div>
           <div className="btn">
-            <button className="button1" type="submit">Зарегистрироваться</button>
-            <Link to={"/login"} type="button" className="button2">Войти</Link>
+          <Link to={"/login"} type="button" className="button1">Войти</Link>
+            <button className="button2" type="submit">Зарегистрироваться</button>
           </div>
           <button type="submit" className="button3" onClick={() => navigate('/')}>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Назад&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

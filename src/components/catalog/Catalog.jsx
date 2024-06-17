@@ -70,7 +70,7 @@ function Catalog() {
 
   return (
     <div className="catalog-container">
-      <h1>Каталог</h1>
+      <h1>Название товаров</h1>
       <div className="catalog-header">
         {role === 'admin' && <button className="add-product-button" onClick={handleAddProduct}>Добавить продукт</button>}
         <div className="sort-container">
@@ -86,7 +86,6 @@ function Catalog() {
       <div className="catalog">
         {sortedProducts.map(product => (
           <div key={product.id} className="product" onClick={() => handleProductClick(product.id)}>
-            <h2 className="product-title">{product.model}</h2>
             <div className="product-details">
               <div className="product-image-container">
                 <img src={`data:image/jpeg;base64,${product.photo}`} alt={product.model} className="product-image" />
@@ -106,7 +105,7 @@ function Catalog() {
                     <button onClick={(e) => { e.stopPropagation(); handleEditProduct(product.id); }}>Редактировать</button>
                     <button onClick={(e) => { e.stopPropagation(); handleDeleteProduct(product.id); }}>Удалить</button>
                   </>
-                )}
+                )} 
               </div>
             </div>
           </div>

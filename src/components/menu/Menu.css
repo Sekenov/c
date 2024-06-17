@@ -7,15 +7,11 @@
     height: 60px;
     border-bottom: 3px solid black;
 }
-.menu .buttons{
-    display: flex;
-    
-    gap: 20px;
-}
+
 .menu ul{
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 75px;
     justify-content: center;
     align-items: center;
 }
@@ -40,3 +36,13 @@
 .menu ul a:hover{
         color: blue;
     }
+
+.menu-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* padding: 0 20px; */
+    height: 60px;
+    border-bottom: 3px solid black;
+}

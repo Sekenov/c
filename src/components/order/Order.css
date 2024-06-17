@@ -18,21 +18,7 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-  }
-  
-  .order-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .order-item {
-    background: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px;
-    text-align: center;
+    max-width: 44%;
   }
   
   .delete-button {
@@ -48,4 +34,64 @@
   .delete-button:hover {
     opacity: 0.8;
   }
-  
+  .cancel-button {
+    padding: 10px 20px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .cancel-button:hover {
+    opacity: 0.8;
+  }
+  .confirm-button {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .confirm-button:hover {
+    opacity: 0.8;
+  }
+
+  .buttonorder {
+    gap: 15px;
+    display: flex;
+  }
+  /* Order.css */
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart, .orders {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.items {
+    display: flex;
+    justify-content: space-around;
+}
+
+.item {
+    text-align: center;
+}
+
+.total {
+    text-align: center;
+}

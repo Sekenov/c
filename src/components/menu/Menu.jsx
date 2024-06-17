@@ -35,36 +35,46 @@ export default function Menu() {
   };
 
   return (
-    <nav className="menu">
-      <ul>
-        <Link to="/catalog">Каталог</Link>
-        {role === 'admin' ? (
-          <>
-            <Link to="/about">О нас</Link>
-            <Link to="/order">Заказ</Link>
-            <Link to="/map">Карта</Link>
-            <Link to="/cart">Корзина </Link>
-            <span className="role">Админ</span>
-            <button className="pocket" onClick={handleLogout}>Выход</button>
-          </>
-        ) : role === 'client' ? (
-          <>
-            <Link to="/about">О нас</Link>
-            <Link to="/order">Заказ</Link>
-            <Link to="/map">Карта</Link>
-            <Link to="/cart">Корзина</Link>
-            <span className="role">Клиент</span>
-            <button className="pocket" onClick={handleLogout}>Выход</button>
-            <button className="pocket" onClick={handleAdminLogin}>Войти как админ</button>
-          </>
-        ) : (
-          <>
-            <span className="role">Посетитель</span>
-            <Link className="pocket" to="/login">Вход</Link>
-            <Link className="pocket" to="/register">Регистрация</Link>
-          </>
-        )}
-      </ul>
-    </nav>
-  );
+		<nav className='menu'>
+			<ul>
+				<Link to='/about'>О нас</Link>
+				<Link to='/catalog'>Каталог</Link>
+				{role === 'admin' ? (
+					<>
+						<Link to='/cart'>Корзина </Link>
+						<Link to='/order'>Заказы</Link>
+						<Link to='/map'>Где нас найти?</Link>
+						<Link to='/room'>Комната Админа</Link>
+						<span className='role'>Админ</span>
+						<button className='pocket' onClick={handleLogout}>
+							Выход
+						</button>
+					</>
+				) : role === 'client' ? (
+					<>
+						<Link to='/cart'>Корзина</Link>
+						<Link to='/order'>Заказы</Link>
+						<Link to='/map'>Где нас найти?</Link>
+						<span className='role'>Клиент</span>
+						<button className='pocket' onClick={handleLogout}>
+							Выход
+						</button>
+						<button className='pocket' onClick={handleAdminLogin}>
+							Войти как админ
+						</button>
+					</>
+				) : (
+					<>
+						<span className='role'>Посетитель</span>
+						<Link className='pocket' to='/login'>
+							Вход
+						</Link>
+						<Link className='pocket' to='/register'>
+							Регистрация
+						</Link>
+					</>
+				)}
+			</ul>
+		</nav>
+	)
 }
